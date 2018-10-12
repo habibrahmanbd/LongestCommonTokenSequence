@@ -11,6 +11,7 @@ Created on Fri Oct 12 21:33:19 2018
 #import numpy
 from nltk import word_tokenize
 import math
+import csv
 
 def sliding_window(toFind, List):
     for i in range(len(List)):
@@ -21,7 +22,7 @@ def sliding_window(toFind, List):
 
 
 
-NumberofFiles = 2                                   #Number of Files (Source Code Files)
+NumberofFiles = 3                                   #Number of Files (Source Code Files)
 
 tokens = []                                         #A list where all the source codes' token will store as 2D list
 
@@ -36,7 +37,8 @@ CurrentRow = tokens[0]                              #Comparision taking the firs
 LenOfCurrentRow = len(CurrentRow)                   #Length of Tokens for a single source code
 
 maxLength = 0                                       #Previously stored maximum length of tokens
-Result = []                                         #Final Result 
+#Result = []                                         #Final Result
+CSV_Writer = []
 for it in range(LenOfCurrentRow):
     for nit in range(it+1, LenOfCurrentRow+1):
         SubToken = CurrentRow[it:nit]               #Taking a sequence to from the tokens of a source code 
@@ -53,11 +55,17 @@ for it in range(LenOfCurrentRow):
             if len(SubToken) > maxLength:           #maximum Length Update
                 maxLength = len(SubToken)
                 Score = math.log(len(SubToken), 2)*math.log(Counts, 2) #As per instractions
-                Result = []
-                Result.append(['Seq: ', 'Count:'+str(len(SubToken)), 'Score: '+str(Score)])
+#                Result = []
+                CSV_Writer = []
+                CSV_Writer.append([Score, maxLength, Counts, SubToken])
+#                Result.append(['Seq: '+str(SubToken), 'Count:'+str(len(SubToken)), 'Score: '+str(Score)])
             elif maxLength == len(SubToken):
                 Score = math.log(len(SubToken), 2)*math.log(Counts, 2) #As per instractions
-                Result.append(['Seq: '+str(SubToken), 'Count:'+str(len(SubToken)), 'Score: '+str(Score)])
+                CSV_Writer.append([Score, maxLength, Counts, SubToken])#CSV Writter
+#                Result.append(['Seq: '+str(SubToken), 'Count:'+str(len(SubToken)), 'Score: '+str(Score)])
 
-print Result                                        # Printing the result to show
+#print Result                                        # Printing the result to show
 
+with open("Task2Output.csv", "wb") as f:
+    writer = csv.writer(f)
+    writer.writerows(CSV_Writer)
