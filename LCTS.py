@@ -27,7 +27,7 @@ NumberofFiles = 3                                   #Number of Files (Source Cod
 tokens = []                                         #A list where all the source codes' token will store as 2D list
 
 for i in range(NumberofFiles):
-    with open(str(i)+".cpp") as fin:                #Source Code files are named with <fileNumber>.cpp
+    with open("Datasets/"+str(i)+".cpp") as fin:                #Source Code files are named with <fileNumber>.cpp
         tokens.append(word_tokenize(fin.read()))    #NLTK is used for tokenization (Not actual Tokenizer for Source code), 
                                                     #Append the tokens for a single source code
         
@@ -66,6 +66,6 @@ for it in range(LenOfCurrentRow):
 
 #print Result                                        # Printing the result to show
 
-with open("Task2Output.csv", "wb") as f:
+with open("Outputs/Task2Output.csv", "wb") as f:
     writer = csv.writer(f)
     writer.writerows(CSV_Writer)
