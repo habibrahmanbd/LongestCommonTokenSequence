@@ -3,11 +3,12 @@
 """
 Created on Fri Oct 12 21:33:19 2018
 
-@author: habib
+@author: Habibur Rahman
+@email: habib[dot]rahman[at]uits[dot]edu[dot]bd 
 """
 
-import nltk
-import numpy
+#import nltk
+#import numpy
 from nltk import word_tokenize
 import math
 
@@ -15,89 +16,48 @@ def sliding_window(toFind, List):
     for i in range(len(List)):
         if List[i:i+len(toFind)]==toFind:
             return True
+        
     return False
 
 
-#tok = ["Hello", "World", "I", "Love", "My", "Country", "Very", "Much"]
-#toFind = ["I", "Love", "My"]
-#
-#print(sliding_window(toFind, tok))
-#
 
+NumberofFiles = 2                                   #Number of Files (Source Code Files)
 
-tokens = []
+tokens = []                                         #A list where all the source codes' token will store as 2D list
 
-for i in range(1, 3):
-    with open(str(i)+".cpp") as fin:
-        tokens.append(word_tokenize(fin.read()))
+for i in range(NumberofFiles):
+    with open(str(i)+".cpp") as fin:                #Source Code files are named with <fileNumber>.cpp
+        tokens.append(word_tokenize(fin.read()))    #NLTK is used for tokenization (Not actual Tokenizer for Source code), 
+                                                    #Append the tokens for a single source code
         
 
-numberOfRow = len(tokens)
-CurrentRow = tokens[0]
-LenOfCurrentRow = len(CurrentRow)
+numberOfRow = len(tokens)                           #Same as Number of Files
+CurrentRow = tokens[0]                              #Comparision taking the first source code
+LenOfCurrentRow = len(CurrentRow)                   #Length of Tokens for a single source code
 
-maxLength = 0
-Result = []
+maxLength = 0                                       #Previously stored maximum length of tokens
+Result = []                                         #Final Result 
 for it in range(LenOfCurrentRow):
     for nit in range(it+1, LenOfCurrentRow+1):
-        SubToken = CurrentRow[it:nit]
+        SubToken = CurrentRow[it:nit]               #Taking a sequence to from the tokens of a source code 
+        #print SubToken
         
-        Counts = 0
+        Counts = 0                                  #Counting the occurance in several source code
         for j in range(1, numberOfRow):
-            if sliding_window(SubToken, tokens[j])==True:
+            occurs = sliding_window(SubToken, tokens[j])    # Pattern Matching with Sliding Window Technique (Can Use Knuth Morris Pratt Algo)
+            if occurs == True:                      #Present or not 
                 Counts = Counts + 1
             else:
                 break
-        if Counts + 1 == numberOfRow:
-            if len(SubToken) > maxLength:
+        if Counts + 1 == numberOfRow:               #Present or not in all the Source Codes' token sequence
+            if len(SubToken) > maxLength:           #maximum Length Update
                 maxLength = len(SubToken)
-                Score = math.log10(len(SubToken))*math.log10(Counts) #Need to Update as per instractions
+                Score = math.log(len(SubToken), 2)*math.log(Counts, 2) #As per instractions
                 Result = []
-                Result.append(['Seq: '+str(SubToken), 'Count:'+str(Counts), 'Score: '+str(Score)])
+                Result.append(['Seq: ', 'Count:'+str(len(SubToken)), 'Score: '+str(Score)])
             elif maxLength == len(SubToken):
-                Score = math.log10(len(SubToken))*math.log10(Counts) #Need to Update as per instractions
-                Result.append(['Seq: '+str(SubToken), 'Count:'+str(Counts), 'Score: '+str(Score)])
+                Score = math.log(len(SubToken), 2)*math.log(Counts, 2) #As per instractions
+                Result.append(['Seq: '+str(SubToken), 'Count:'+str(len(SubToken)), 'Score: '+str(Score)])
 
-print Result
-                
-           
-            
-        
-        
-        #print SubToken
-#    int n = arr.length; 
-#  
-#        // Take first word from array as reference 
-#        String s = arr[0]; 
-#        int len = s.length(); 
-#  
-#        String res = ""; 
-#  
-#        for (int i = 0; i < len; i++) { 
-#            for (int j = i + 1; j <= len; j++) { 
-#  
-#                // generating all possible substrings 
-#                // of our reference string arr[0] i.e s 
-#                String stem = s.substring(i, j); 
-#                int k = 1; 
-#                for (k = 1; k < n; k++)  
-#  
-#                    // Check if the generated stem is 
-#                    // common to to all words 
-#                    if (!arr[k].contains(stem)) 
-#                        break; 
-#                  
-#                // If current substring is present in 
-#                // all strings and its length is greater   
-#                // than current result 
-#                if (k == n && res.length() < stem.length()) 
-#                    res = stem; 
-#            } 
-#    
-#    
+print Result                                        # Printing the result to show
 
-#print len(tokens)
-
-#with open('01.txt', 'w') as f:
-#    for item in tokens:
-#        f.write("%s " % item)
