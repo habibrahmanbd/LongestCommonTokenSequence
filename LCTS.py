@@ -13,7 +13,7 @@ from nltk import word_tokenize
 import math
 import csv
 
-def sliding_window(toFind, List):
+def sliding_window(toFind, List):                   #Method for Pattern Matching
     for i in range(len(List)):
         if List[i:i+len(toFind)]==toFind:
             return True
