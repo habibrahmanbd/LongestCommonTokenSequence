@@ -9,7 +9,7 @@ Created on Fri Oct 12 21:33:19 2018
 import nltk
 import numpy
 from nltk import word_tokenize
-
+import math
 
 def sliding_window(toFind, List):
     for i in range(len(List)):
@@ -24,22 +24,45 @@ def sliding_window(toFind, List):
 #print(sliding_window(toFind, tok))
 #
 
-#
-#tokens = []
-#
-#for i in range(2):
-#    with open(str(i)+".cpp") as fin:
-#        tokens.append(word_tokenize(fin.read()))
-#        
-#
-#numberOfRow = len(tokens)
-#CurrentRow = tokens[0]
-#LenOfCurrentRow = len(CurrentRow)
-#
-#
-#for it in range(LenOfCurrentRow):
-#    for nit in range(it+1, LenOfCurrentRow+1):
-#        SubToken = CurrentRow[it:nit]
+
+tokens = []
+
+for i in range(1, 3):
+    with open(str(i)+".cpp") as fin:
+        tokens.append(word_tokenize(fin.read()))
+        
+
+numberOfRow = len(tokens)
+CurrentRow = tokens[0]
+LenOfCurrentRow = len(CurrentRow)
+
+maxLength = 0
+Result = []
+for it in range(LenOfCurrentRow):
+    for nit in range(it+1, LenOfCurrentRow+1):
+        SubToken = CurrentRow[it:nit]
+        
+        Counts = 0
+        for j in range(1, numberOfRow):
+            if sliding_window(SubToken, tokens[j])==True:
+                Counts = Counts + 1
+            else:
+                break
+        if Counts + 1 == numberOfRow:
+            if len(SubToken) > maxLength:
+                maxLength = len(SubToken)
+                Score = math.log10(len(SubToken))*math.log10(Counts) #Need to Update as per instractions
+                Result = []
+                Result.append(['Seq: '+str(SubToken), 'Count:'+str(Counts), 'Score: '+str(Score)])
+            elif maxLength == len(SubToken):
+                Score = math.log10(len(SubToken))*math.log10(Counts) #Need to Update as per instractions
+                Result.append(['Seq: '+str(SubToken), 'Count:'+str(Counts), 'Score: '+str(Score)])
+
+print Result
+                
+           
+            
+        
         
         #print SubToken
 #    int n = arr.length; 
