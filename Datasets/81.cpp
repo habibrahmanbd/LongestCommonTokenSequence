@@ -51,50 +51,38 @@ template <class T> inline T modinverse(T a,T M)
 {
     return bigmod(a,M-2,M);
 }
-//------------------------------------------------------
-
 
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    ll T=ILL;
+    for(ll cs=1; cs<=T; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
+        ll N=ILL, M=ILL;
+        ll Life_cycle[M];
+        for(ll i=0; i<M; i++) Life_cycle[i]=ILL;
+        ll to = (ll) pow(2,M);
+        ll res=0;
+        for(ll i=1; i<to; i++)
         {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
+            ll lcm_of_sets = 1;
+            ll num_of_sets=0;
+            ll bit_len = (ll)ceil(log2(i));
+            for(ll j=0; j<=bit_len; j++)
             {
-                if(p%j==0)
+                if((1<<j)&i)
                 {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
+                    num_of_sets++;
+                    lcm_of_sets = (lcm_of_sets*Life_cycle[j])/gcd(lcm_of_sets,Life_cycle[j]);
                 }
             }
-            if(p>1)
-                arr[p]++;
+            if((num_of_sets+1)%2)
+                res-=(ll)floor(N/lcm_of_sets);
+            else
+                res+=(ll)floor(N/lcm_of_sets);
+//            cout<<"Res: "<<res<<endl;
         }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
-        }
-        pf("\n");
 
+        pf("Case %lld: %lld\n",cs,N-res);
     }
     return 0;
 }

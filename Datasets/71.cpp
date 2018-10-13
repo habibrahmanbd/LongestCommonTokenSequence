@@ -29,7 +29,7 @@ using namespace std;
 #define out         freopen("out.txt","w",stdout)
 #define PI          2*acos(0.0)
 #define mod         1000000007
-#define INF         LLONG_MAX
+#define INF         5000
 #define endl	    '\n'
 
 template <class T> inline T bigmod(T p,T e,T M)
@@ -52,48 +52,49 @@ template <class T> inline T modinverse(T a,T M)
     return bigmod(a,M-2,M);
 }
 //------------------------------------------------------
-
+/*
+Algorithm: BFS/DFS
+There is an unlimited supply of commando troops for the mission, so we can assign one commando
+for destroying one building. So, the i'th commando have to:
+1. Start from the building s and go to the i'th building
+2. From the i'th building, go to building d
+So, we have to calculate (shortest path from s to i) + (shortest path from d to i)
+for all commandos, and find the maximum value among these.
+*/
 
 int main()
 {
     int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    for(int cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
+        int n=II,m=II;
+        int arr[n+1][n+1];
+        for(int i=0; i<=n; i++)
         {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
+            for(int j=0; j<=n; j++)
             {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
-        }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
+                if(i==j)
+                    arr[i][j]=0;
                 else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
+                    arr[i][j]=INF;
             }
         }
-        pf("\n");
+        for(int i=1; i<=m; i++)
+        {
+            int u=II, v=II;
+            arr[u][v]=1;
+            arr[v][u]=1;
+        }
+        int source=II, des=II;
+
+        for(int k=0; k<n; k++)
+            for(int i=0; i<n; i++)
+                for(int j=0; j<n; j++)
+                    arr[i][j]=min(arr[i][j],arr[i][k]+arr[k][j]);
+        int res=0;
+        for(int i=0; i<n; i++)
+            res=max(res, arr[source][i]+arr[i][des]);
+        pf("Case %d: %d\n",cs, res);
 
     }
     return 0;

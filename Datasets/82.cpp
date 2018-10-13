@@ -27,7 +27,7 @@ using namespace std;
 #define all(V)      V.begin(),V.end()
 #define in          freopen("in.txt","r",stdin)
 #define out         freopen("out.txt","w",stdout)
-#define PI          2*acos(0.0)
+#define PI          2.0*acos(0.0)
 #define mod         1000000007
 #define INF         LLONG_MAX
 #define endl	    '\n'
@@ -56,45 +56,14 @@ template <class T> inline T modinverse(T a,T M)
 
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
-        {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
-            {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
-        }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
-        }
-        pf("\n");
-
+        db r1=ID, r2=ID, h=ID, p=ID;
+        db R1=r1, R2=r2, H=h, P=p;
+        db v_g = 1.0/3.0*PI*h*((r2*r2)+(r1*r2)+(r1*r1));
+        db mid = r2+(r1-r2)*p/h;
+        pf("Case %lld: %.10lf\n",cs,(1.0/3.0*PI*p*((mid*mid)+(mid*r2)+(r2*r2))));
     }
     return 0;
 }

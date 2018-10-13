@@ -51,50 +51,46 @@ template <class T> inline T modinverse(T a,T M)
 {
     return bigmod(a,M-2,M);
 }
-//------------------------------------------------------
+ll zeros(ll n, ll k)
+{
+    ll res = 0, kk = k;
+    while (kk <= n)
+    {
+        res += n / kk;
+        kk *= k;
+    }
+    return res;
+}
 
-
+ll get(ll n)
+{
+    return min(zeros(n, 2), zeros(n, 5));
+}
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    ll t=ILL;
+    for(ll i=1; i<=t; i++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
+        ll q=ILL;
+        ll low=0;
+        ll high=LONG_LONG_MAX,res=LONG_LONG_MAX;
+        while(low<=high)
         {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
+            ll mid = (low+high)/2;
+            ll cnt_z=get(mid);
+            if(cnt_z>=q)
             {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
+                high=mid-1;
+                if(cnt_z==q)
+                    res=min(res,mid);
             }
-            if(p>1)
-                arr[p]++;
+            else
+                low=mid+1;
         }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
-        }
-        pf("\n");
-
+        if(res!=LONG_LONG_MAX)
+            pf("Case %lld: %lld\n",i,res);
+        else
+            pf("Case %lld: impossible\n",i);
     }
     return 0;
 }

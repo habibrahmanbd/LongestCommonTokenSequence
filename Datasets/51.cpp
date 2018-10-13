@@ -28,7 +28,7 @@ using namespace std;
 #define in          freopen("in.txt","r",stdin)
 #define out         freopen("out.txt","w",stdout)
 #define PI          2*acos(0.0)
-#define mod         1000000007
+#define mod         100000007
 #define INF         LLONG_MAX
 #define endl	    '\n'
 
@@ -59,36 +59,23 @@ int main()
     int t=II;
     for(int cs=1; cs<=t; cs++)
     {
-        int n=II, w=II, k=II;
-        int y[n+3],temp;
-        for(int i=0; i<n; i++)
-            temp=II,y[i]=II;
-        sort(y,y+n);
-        y[n++]=INT_MAX;
-        int dp[105][105];
-        memset(dp, 0, sizeof dp);
-        for(int i=0; i<n-1; i++)
+        int n=II, k=II;
+        ll w[10005]={0};
+        w[0]=1;
+        int val[102];
+        for(int i=1; i<=n; i++)
+            val[i]=II;
+        for(int i=1; i<=n; i++)
         {
-            for(int j=0; j<k; j++)
+            for(int j=1; j<=k; j++)
             {
-                if(i!=0)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j]);
-                int high=i;
-                while(y[high]<=y[i]+w)
-                    high++;
-                dp[high][j+1]=max(dp[high][j+1],dp[i][j]+high-i);
+                if(val[i]<=j)
+                    w[j]=w[j]+w[j-val[i]];
+                if(w[j]>mod)
+                    w[j]=w[j]%mod;
             }
         }
-        int res=0;
-        for(int i=0;i<n; i++)
-        {
-            for(int j=0; j<=k; j++)
-            {
-                res=max(res, dp[i][j]);
-//                cout<<res<<endl;
-            }
-        }
-        pf("Case %d: %d\n",cs,res);
+        pf("Case %d: %lld\n",cs,w[k]);
     }
     return 0;
 }

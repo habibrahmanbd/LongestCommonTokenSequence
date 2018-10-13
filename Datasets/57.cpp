@@ -30,7 +30,7 @@ using namespace std;
 #define PI          2*acos(0.0)
 #define mod         1000000007
 #define INF         LLONG_MAX
-#define endl	    '\n'
+#define endl        '\n'
 
 template <class T> inline T bigmod(T p,T e,T M)
 {
@@ -51,50 +51,59 @@ template <class T> inline T modinverse(T a,T M)
 {
     return bigmod(a,M-2,M);
 }
-//------------------------------------------------------
 
-
+struct points
+{
+    db x, y, z;
+    double dist(points p)
+    {
+        p.x -= x;
+        p.y -= y;
+        p.z -= z;
+        return sqrt(p.x * p.x + p.y * p.y+ p.z*p.z);
+    }
+};
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    ios_base::sync_with_stdio(false);
+    ll t;
+    cin>>t;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
+        points a,b,p;
+        cin>>a.x>>a.y>>a.z;
+        cin>>b.x>>b.y>>b.z;
+        cin>>p.x>>p.y>>p.z;
+        db res=(db)(1e15);
+        for(ll i=0; i<=50; i++)
         {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
-            {
-                if(p%j==0)
-                {
+            points left, right;
 
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
-        }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
-        }
-        pf("\n");
+            left.x= a.x+(b.x-a.x)/3.0;
 
+            left.y= a.y+(b.y-a.y)/3.0;
+
+            left.z= a.z+(b.z-a.z)/3.0;
+
+            right.x= b.x-(b.x-a.x)/3.0;
+
+            right.y= b.y-(b.y-a.y)/3.0;
+
+            right.z= b.z-(b.z-a.z)/3.0;
+
+            db m1 = p.dist(left);
+
+            db m2 = p.dist(right);
+
+            res=min(res,min(m1,m2));
+
+            if(m1>m2)
+                a=left;
+            else
+                b=right;
+//            cout<<res<<endl;
+        }
+        cout<<"Case "<<cs<<": "<<setprecision(10)<<res<<endl;
     }
     return 0;
 }

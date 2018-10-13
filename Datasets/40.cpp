@@ -56,45 +56,29 @@ template <class T> inline T modinverse(T a,T M)
 
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
+        ll n=ILL;
+        ll a=0,b=0;
+        if(n>=11)
         {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
+            if(n%2)
             {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
+                a=n/2;
+                b=a+1;
             }
-            if(p>1)
-                arr[p]++;
-        }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
+            else
             {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
+                a=n/2;
+                b=a;
             }
         }
-        pf("\n");
-
+        else
+        {
+            a=0, b=n;
+        }
+        pf("%lld %lld\n",a,b);
     }
     return 0;
 }

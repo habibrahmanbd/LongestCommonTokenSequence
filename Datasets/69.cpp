@@ -56,39 +56,15 @@ template <class T> inline T modinverse(T a,T M)
 
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++)
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II, w=II, k=II;
-        int y[n+3],temp;
-        for(int i=0; i<n; i++)
-            temp=II,y[i]=II;
-        sort(y,y+n);
-        y[n++]=INT_MAX;
-        int dp[105][105];
-        memset(dp, 0, sizeof dp);
-        for(int i=0; i<n-1; i++)
-        {
-            for(int j=0; j<k; j++)
-            {
-                if(i!=0)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j]);
-                int high=i;
-                while(y[high]<=y[i]+w)
-                    high++;
-                dp[high][j+1]=max(dp[high][j+1],dp[i][j]+high-i);
-            }
-        }
-        int res=0;
-        for(int i=0;i<n; i++)
-        {
-            for(int j=0; j<=k; j++)
-            {
-                res=max(res, dp[i][j]);
-//                cout<<res<<endl;
-            }
-        }
-        pf("Case %d: %d\n",cs,res);
+        db v1=ID, v2=ID, v3=ID, a1=ID, a2=ID;
+        db t1=v1/a1;
+        db t2=v2/a2;
+        db s1 = (v1*v1*0.5)/a1;
+        db s2 = (v2*v2*0.5)/a2;
+        pf("Case %lld: %.10lf %.10lf\n",cs,s1+s2,max(t1,t2)*v3);
     }
     return 0;
 }

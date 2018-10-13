@@ -51,50 +51,36 @@ template <class T> inline T modinverse(T a,T M)
 {
     return bigmod(a,M-2,M);
 }
-//------------------------------------------------------
-
-
+ll f[6];
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    ios_base::sync_with_stdio(0);
+    f[0]=1,f[1]=1,f[2]=2,f[3]=6,f[4]=24,f[5]=120;
+    ll t;
+    cin>>t;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
+        ll n,k;
+        cin>>n>>k;
+//        cout<<fact[n]<<endl;
+        char arr[n+1];
+        for(ll i=0; i<n; i++)
+            arr[i]='A'+i;
+//        arr[n]='\0';
+        ll to;
+        if(n<=5)
+            to=min(k,f[n]);
+        else
+            to=k;
+//        cout<<to<<endl;
+        cout<<"Case "<<cs<<":\n";
+        for(ll i=1; i<=to; i++)
         {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
-            {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
+            for(ll j=0; j<n; j++)
+            cout<<arr[j];
+            cout<<endl;
+            next_permutation(arr,arr+n);
         }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
-        }
-        pf("\n");
-
     }
     return 0;
 }

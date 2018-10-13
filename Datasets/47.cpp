@@ -53,48 +53,37 @@ template <class T> inline T modinverse(T a,T M)
 }
 //------------------------------------------------------
 
-
+ll dp[16][1<<16];
+ll val[16][16];
+ll n;
+ll solve(int pos, int mask)
+{
+    if(pos>=n)
+        return 0;
+    if(dp[pos][mask]==(ll)-1)
+    {
+        for(int i=0; i<n; i++)
+        {
+            if(!(mask&(1<<i)))
+                dp[pos][mask]=max(dp[pos][mask],val[pos][i]+solve(pos+1, mask|(1<<i)));
+        }
+    }
+    return dp[pos][mask];
+}
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    ll t=ILL;
+    for(ll i=1; i<=t; i++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
-        {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
-            {
-                if(p%j==0)
-                {
+        memset(dp, -1, sizeof(dp));
+//        memset(val, 0, sizeof val);
+        n=ILL;
+        for(ll j=0; j<n; j++)
+            for(ll k=0; k<n; k++)
+                val[j][k]=II;
 
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
-        }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
-        }
-        pf("\n");
-
+        ll res=solve(0,0);
+        pf("Case %lld: %lld\n",i,res);
     }
     return 0;
 }

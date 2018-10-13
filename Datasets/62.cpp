@@ -57,44 +57,42 @@ template <class T> inline T modinverse(T a,T M)
 int main()
 {
     int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    for(int cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
+        ll p=ILL, l=ILL;
+        p-=l;
+        ll temp = (ll)ceil(sqrt(p));
+        vector<ll>res;
+        for(ll i=1; i<temp; i++)
         {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
+            if(p%i==0)
             {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
-        }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
+                ll q=(p/i);
+                if(l<q)
+                    res.pb(q);
+                if(l<i)
+                    res.pb(i);
             }
         }
-        pf("\n");
-
+        if(temp*temp==p)
+        {
+            ll q= temp;
+            if(l<q)
+                res.pb(q);
+        }
+        sort(all(res));
+        if(res.size())
+        {
+            pf("Case %d: %lld",cs,res[0]);
+//            pf("here");
+            for(ll i=1; i<res.size(); i++)
+                pf(" %lld",res[i]);
+            pf("\n");
+        }
+        else
+        {
+            pf("Case %d: impossible\n",cs);
+        }
     }
     return 0;
 }

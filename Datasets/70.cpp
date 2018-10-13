@@ -52,48 +52,49 @@ template <class T> inline T modinverse(T a,T M)
     return bigmod(a,M-2,M);
 }
 //------------------------------------------------------
-
+int gold[102];
+double dp[102],res;
 
 int main()
 {
+//    ios_base::sync_with_stdio(false);cin.tie(0);
     int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    for(int cs=1; cs<=t; cs++)
     {
         int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
+        for(int i=1; i<=n; i++)
+            gold[i]=II;
+        res=0.0;
+        if(n<=2)
         {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
+            for(int i=1; i<=n; i++)
+                res+=(db)gold[i];
+        }
+        else
+        {
+            dp[1]=(db)gold[1];
+            dp[n]=(db)gold[n];
+            for(int i=n-1; i>=1; i--)
             {
-                if(p%j==0)
+                int _in,_out;
+                if(n-i<6)
                 {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
+                    _in=n-i;
+                    _out=i+6-n;
                 }
-            }
-            if(p>1)
-                arr[p]++;
-        }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
                 else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
+                    _in=6,_out=0;
+                db _in_sum=0.0;
+                for(int k=1; k<=_in; k++)
+                    _in_sum+=dp[i+k];
+                if(_out<6)
+                    dp[i]=(6.0/(6.0-(db)_out))*(((db)_in_sum/6.0)+((db)_in/6.0)*(db)gold[i]);
+                else
+                    dp[i]=(((db)_in_sum/6.0)+((db)_in/6.0)*(db)gold[i]);
             }
+            res+=dp[1];
         }
-        pf("\n");
+        pf("Case %d: %.10lf\n",cs,res);
 
     }
     return 0;

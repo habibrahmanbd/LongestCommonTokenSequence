@@ -56,45 +56,32 @@ template <class T> inline T modinverse(T a,T M)
 
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
+        ll n=ILL;
+        ll arr[n];
+        for(ll i=0; i<n; i++)
+            arr[i]=ILL;
+        ll count=0;
+        if(arr[0]>2)
         {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
-            {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
+            ll res=(arr[0]-2)/5;
+            ll rem = (arr[0]-2)%5;
+            count+=res;
+            if(rem)
+                count++;
         }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
+        for(ll i=0; i<n-1; i++)
+            if(arr[i]<arr[i+1])
             {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
+                ll res=(arr[i+1]-arr[i])/5;
+                ll rem = (arr[i+1]-arr[i])%5;
+                count+=res;
+                if(rem)
+                    count++;
             }
-        }
-        pf("\n");
-
+        pf("Case %lld: %lld\n",cs,count);
     }
     return 0;
 }

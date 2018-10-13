@@ -56,39 +56,25 @@ template <class T> inline T modinverse(T a,T M)
 
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++)
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II, w=II, k=II;
-        int y[n+3],temp;
-        for(int i=0; i<n; i++)
-            temp=II,y[i]=II;
-        sort(y,y+n);
-        y[n++]=INT_MAX;
-        int dp[105][105];
-        memset(dp, 0, sizeof dp);
-        for(int i=0; i<n-1; i++)
+        ll n=ILL;
+        vector<pair<ll ,string> >v;
+        for(ll i=0; i<n; i++)
         {
-            for(int j=0; j<k; j++)
-            {
-                if(i!=0)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j]);
-                int high=i;
-                while(y[high]<=y[i]+w)
-                    high++;
-                dp[high][j+1]=max(dp[high][j+1],dp[i][j]+high-i);
-            }
+            string a;
+            cin>>a;
+            ll x=ILL,y=ILL,z=ILL;
+            v.pb(mp((x*y*z),a));
         }
-        int res=0;
-        for(int i=0;i<n; i++)
-        {
-            for(int j=0; j<=k; j++)
-            {
-                res=max(res, dp[i][j]);
-//                cout<<res<<endl;
-            }
+        sort(all(v));
+        if(v[0].first==v[n-1].first)
+            pf("Case %lld: no thief\n",cs);
+        else{
+            pf("Case %lld: ",cs);
+            cout<<v[n-1].second<<" took chocolate from "<<v[0].second<<"\n";
         }
-        pf("Case %d: %d\n",cs,res);
     }
     return 0;
 }

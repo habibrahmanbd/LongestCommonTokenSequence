@@ -52,49 +52,27 @@ template <class T> inline T modinverse(T a,T M)
     return bigmod(a,M-2,M);
 }
 //------------------------------------------------------
-
-
+ll r1,c1,r2,c2;
+ll solve()
+{
+    ll a = (r1+c1)&1, b=(r2+c2)&1;
+    if(a!=b)
+        return -1;
+    if(abs(r1-r2)==abs(c1-c2))
+        return 1;
+    return 2;
+}
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
-        {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
-            {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
-        }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
-        }
-        pf("\n");
-
+        r1=ILL, c1=ILL, r2=ILL,c2=ILL;
+        pf("Case %lld: ",cs);
+        ll res=solve();
+        if(res<0)
+            pf("impossible\n");
+        else pf("%lld\n",res);
     }
     return 0;
 }

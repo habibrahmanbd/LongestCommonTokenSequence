@@ -56,39 +56,52 @@ template <class T> inline T modinverse(T a,T M)
 
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++)
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II, w=II, k=II;
-        int y[n+3],temp;
-        for(int i=0; i<n; i++)
-            temp=II,y[i]=II;
-        sort(y,y+n);
-        y[n++]=INT_MAX;
-        int dp[105][105];
-        memset(dp, 0, sizeof dp);
-        for(int i=0; i<n-1; i++)
+        ll n=ILL,m=ILL;
+        vector<ll>v;
+        for(ll i=0; i<n; i++)
         {
-            for(int j=0; j<k; j++)
+            ll temp=ILL;
+            v.pb(temp);
+        }
+        for(ll i=0; i<m; i++)
+        {
+            char q;
+            cin>>q;
+            if(q=='S')
             {
-                if(i!=0)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j]);
-                int high=i;
-                while(y[high]<=y[i]+w)
-                    high++;
-                dp[high][j+1]=max(dp[high][j+1],dp[i][j]+high-i);
+                ll d=ILL;
+                for(ll j=0; j<n; j++)
+                    v[j]+=d;
+            }
+            else if(q=='M')
+            {
+                ll d=ILL;
+                for(ll j=0; j<n; j++)
+                    v[j]*=d;
+            }
+            else if(q=='D')
+            {
+                ll d=ILL;
+                for(ll j=0; j<n; j++)
+                    v[j]/=d;
+            }
+            else if(q=='R')
+            {
+                reverse(all(v));
+            }
+            else if(q=='P')
+            {
+                ll y=ILL,z=ILL;
+                swap(v[y],v[z]);
             }
         }
-        int res=0;
-        for(int i=0;i<n; i++)
-        {
-            for(int j=0; j<=k; j++)
-            {
-                res=max(res, dp[i][j]);
-//                cout<<res<<endl;
-            }
-        }
-        pf("Case %d: %d\n",cs,res);
+        pf("Case %lld:\n",cs);
+        for(ll j=0; j<n-1; j++)
+            pf("%lld ",v[j]);
+        pf("%lld\n",v[n-1]);
     }
     return 0;
 }

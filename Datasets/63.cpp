@@ -51,50 +51,52 @@ template <class T> inline T modinverse(T a,T M)
 {
     return bigmod(a,M-2,M);
 }
-//------------------------------------------------------
 
+void extended_euclid(ll a, ll b, ll &x, ll &y, ll &g)
+{
+    x = 0;
+    y = 1;
+    g = b;
+    ll m, n, q, r;
+    for (ll u=1, v=0; a != 0; g=a, a=r)
+    {
+        q = g / a;
+        r = g % a;
+        m = x-u*q;
+        n = y-v*q;
+        x=u;
+        y=v;
+        u=m;
+        v=n;
+    }
+}
 
+ll chinese_remainder_theorem(vector<ll> ns, vector<ll> as)
+{
+    int k  = ns.size();
+    ll N = 1, x = 0, r, s, g;
+    for (int i = 0; i < k; ++i) N *= ns[i];
+    for (int i = 0; i < k; ++i)
+    {
+        extended_euclid(ns[i], N/ns[i], r, s, g);
+        x += as[i]*s*(N/ns[i]);
+        x %= N;
+    }
+    if (x < 0) x += N;
+    return x;
+}
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+//    cout<<modinverse(21,5);
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
-        {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
-            {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
-        }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
-        }
-        pf("\n");
-
+        ll n=ILL;
+        vector<ll> primes(n),rnd(n);
+        for(ll i=0; i<n; i++)
+            primes[i]=ILL, rnd[i]=ILL;
+        pf("Case %lld: %lld\n",cs,chinese_remainder_theorem(primes,rnd));
     }
+//    ios_base::sync_with_stdio(false);cin.tie(0);
     return 0;
 }

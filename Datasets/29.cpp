@@ -52,49 +52,34 @@ template <class T> inline T modinverse(T a,T M)
     return bigmod(a,M-2,M);
 }
 //------------------------------------------------------
-
+#define maxN 5000011
+ull phi[maxN];
+bool isPrime[maxN];
+void sieve()
+{
+    for(ull i=0; i<maxN; i++)
+        isPrime[i] = true, phi[i] = i;
+    for (ull i = 2; i < maxN; i++)
+        if (isPrime[i])
+            for (ull j = i; j < maxN; j += i)
+            {
+                isPrime[j] = false;
+                phi[j] *= i - 1;
+                phi[j] /= i;
+            }
+    phi[1] = 0;
+    for(ll i=2; i<=maxN - 1; i++)
+        phi[i] = phi[i - 1] + phi[i] * phi[i];
+}
 
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    sieve();
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
-        {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
-            {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
-        }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
-        }
-        pf("\n");
-
+        ll a=ILL,b=ILL;
+        pf("Case %lld: %llu\n",cs,phi[max(b,a)]-phi[min(a,b)-1]);
     }
     return 0;
 }

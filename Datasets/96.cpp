@@ -51,50 +51,27 @@ template <class T> inline T modinverse(T a,T M)
 {
     return bigmod(a,M-2,M);
 }
-//------------------------------------------------------
-
 
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
+        ll n=ILL, q=ILL;
+        vll arr;
+        for(ll i=0; i<n; i++)
         {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
-            {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
+            ll temp=ILL;
+            arr.pb(temp);
         }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
+        pf("Case %lld:\n",cs);
+        for(ll i=1; i<=q; i++)
         {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
+            ll start=ILL, stop=ILL;
+            ll res1= (ll) (lower_bound(all(arr),start)-arr.begin());
+            ll res2= (ll) (upper_bound(all(arr),stop)-arr.begin());
+            pf("%lld\n",res2-res1);
         }
-        pf("\n");
-
     }
     return 0;
 }

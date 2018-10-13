@@ -53,42 +53,23 @@ template <class T> inline T modinverse(T a,T M)
 }
 //------------------------------------------------------
 
-
+struct point
+{
+    ll x,y;
+};
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++)
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II, w=II, k=II;
-        int y[n+3],temp;
-        for(int i=0; i<n; i++)
-            temp=II,y[i]=II;
-        sort(y,y+n);
-        y[n++]=INT_MAX;
-        int dp[105][105];
-        memset(dp, 0, sizeof dp);
-        for(int i=0; i<n-1; i++)
-        {
-            for(int j=0; j<k; j++)
-            {
-                if(i!=0)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j]);
-                int high=i;
-                while(y[high]<=y[i]+w)
-                    high++;
-                dp[high][j+1]=max(dp[high][j+1],dp[i][j]+high-i);
-            }
-        }
-        int res=0;
-        for(int i=0;i<n; i++)
-        {
-            for(int j=0; j<=k; j++)
-            {
-                res=max(res, dp[i][j]);
-//                cout<<res<<endl;
-            }
-        }
-        pf("Case %d: %d\n",cs,res);
+        point a,b,c,d;
+        a.x=ILL,a.y=ILL;
+        b.x=ILL,b.y=ILL;
+        c.x=ILL,c.y=ILL;
+        d.x=a.x+c.x-b.x,d.y=a.y+c.y-b.y;
+//        ll ot = abs((c.x-d.x)*(c.y-b.y));
+        ll res  = abs(a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y));
+        pf("Case %lld: %lld %lld %lld\n",cs,d.x,d.y,res);
     }
     return 0;
 }

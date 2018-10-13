@@ -27,7 +27,7 @@ using namespace std;
 #define all(V)      V.begin(),V.end()
 #define in          freopen("in.txt","r",stdin)
 #define out         freopen("out.txt","w",stdout)
-#define PI          2*acos(0.0)
+#define PI          acos(-1.0)
 #define mod         1000000007
 #define INF         LLONG_MAX
 #define endl	    '\n'
@@ -56,39 +56,23 @@ template <class T> inline T modinverse(T a,T M)
 
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++)
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II, w=II, k=II;
-        int y[n+3],temp;
-        for(int i=0; i<n; i++)
-            temp=II,y[i]=II;
-        sort(y,y+n);
-        y[n++]=INT_MAX;
-        int dp[105][105];
-        memset(dp, 0, sizeof dp);
-        for(int i=0; i<n-1; i++)
-        {
-            for(int j=0; j<k; j++)
-            {
-                if(i!=0)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j]);
-                int high=i;
-                while(y[high]<=y[i]+w)
-                    high++;
-                dp[high][j+1]=max(dp[high][j+1],dp[i][j]+high-i);
-            }
-        }
-        int res=0;
-        for(int i=0;i<n; i++)
-        {
-            for(int j=0; j<=k; j++)
-            {
-                res=max(res, dp[i][j]);
-//                cout<<res<<endl;
-            }
-        }
-        pf("Case %d: %d\n",cs,res);
+        db r1=ID, r2=ID, r3=ID;
+        db a=r1+r2, b=r2+r3, c=r3+r1;
+        db A = acos(((b*b)+(c*c)-(a*a))/(2.0*b*c));
+        db B = acos(((a*a)+(c*c)-(b*b))/(2.0*a*c));
+        db C = acos(((b*b)+(a*a)-(c*c))/(2.0*b*a));
+        db sum=0.0;
+        sum = ((r1*r1*B)/2.0);
+        sum += ((r2*r2*C)/2.0);
+        sum += ((r3*r3*A)/2.0);
+
+        db s = (a+b+c)/2.0;
+        db Area_T = sqrt(s*(s-a)*(s-b)*(s-c));
+        pf("Case %lld: %.10lf\n",cs,fabs(Area_T)-sum);
+
     }
     return 0;
 }

@@ -52,43 +52,17 @@ template <class T> inline T modinverse(T a,T M)
     return bigmod(a,M-2,M);
 }
 //------------------------------------------------------
-
-
+///In following, we suppose A = (u,v) and B = (w,z), with u,w and v,z having rational differences, and typically write y = mx+b with m=e/d and b=g/f.
+///Case 1. A, B both are LP's: Let q = gcd(u-w,v-z); take d = (u-w)/q and e = (v-z)/q and it's easily seen that there are q+1 lattice points on AB.
+///http://stackoverflow.com/questions/7804925/lattice-points-in-a-2d-plane
 int main()
 {
     int t=II;
     for(int cs=1; cs<=t; cs++)
     {
-        int n=II, w=II, k=II;
-        int y[n+3],temp;
-        for(int i=0; i<n; i++)
-            temp=II,y[i]=II;
-        sort(y,y+n);
-        y[n++]=INT_MAX;
-        int dp[105][105];
-        memset(dp, 0, sizeof dp);
-        for(int i=0; i<n-1; i++)
-        {
-            for(int j=0; j<k; j++)
-            {
-                if(i!=0)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j]);
-                int high=i;
-                while(y[high]<=y[i]+w)
-                    high++;
-                dp[high][j+1]=max(dp[high][j+1],dp[i][j]+high-i);
-            }
-        }
-        int res=0;
-        for(int i=0;i<n; i++)
-        {
-            for(int j=0; j<=k; j++)
-            {
-                res=max(res, dp[i][j]);
-//                cout<<res<<endl;
-            }
-        }
-        pf("Case %d: %d\n",cs,res);
+        ll x1=ILL,y1=ILL,x2=ILL,y2=ILL;
+        ll q = abs(gcd((x1-x2),(y1-y2)));
+        pf("Case %d: %lld\n",cs, q+1);
     }
     return 0;
 }

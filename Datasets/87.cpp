@@ -59,36 +59,29 @@ int main()
     int t=II;
     for(int cs=1; cs<=t; cs++)
     {
-        int n=II, w=II, k=II;
-        int y[n+3],temp;
+        int n=II, d=II;
+        deque<pi>dq1,dq2;
+        vi v(n);
         for(int i=0; i<n; i++)
-            temp=II,y[i]=II;
-        sort(y,y+n);
-        y[n++]=INT_MAX;
-        int dp[105][105];
-        memset(dp, 0, sizeof dp);
-        for(int i=0; i<n-1; i++)
+            v[i]=II;
+        int ans=-1;
+//        pf("here");
+        for(int i=0; i<n; i++)
         {
-            for(int j=0; j<k; j++)
-            {
-                if(i!=0)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j]);
-                int high=i;
-                while(y[high]<=y[i]+w)
-                    high++;
-                dp[high][j+1]=max(dp[high][j+1],dp[i][j]+high-i);
-            }
+            while(dq1.size()&&dq1.front().first>=v[i])
+                dq1.pop_front();
+            while(dq1.size()&&dq1.back().second<=i-d)
+                dq1.pop_back();
+            dq1.push_front(pi(v[i],i));
+            while(dq2.size()&&dq2.front().first<=v[i])
+                dq2.pop_front();
+            while(dq2.size()&&dq2.back().second<=i-d)
+                dq2.pop_back();
+            dq2.push_front(pi(v[i],i));
+            if(i>=d-1)
+                ans=max(ans, abs(dq1.back().first-dq2.back().first));
         }
-        int res=0;
-        for(int i=0;i<n; i++)
-        {
-            for(int j=0; j<=k; j++)
-            {
-                res=max(res, dp[i][j]);
-//                cout<<res<<endl;
-            }
-        }
-        pf("Case %d: %d\n",cs,res);
+        pf("Case %d: %d\n",cs,ans);
     }
     return 0;
 }

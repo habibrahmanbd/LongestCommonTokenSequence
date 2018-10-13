@@ -53,42 +53,44 @@ template <class T> inline T modinverse(T a,T M)
 }
 //------------------------------------------------------
 
+int prime[700000];
+bool is_prime[10000000];
+
+int total=0;
+void solve()
+{
+    total=0;
+    is_prime[0]=is_prime[1]=1;
+    for(int i=2; i<10000000; i++)
+    {
+        if(!is_prime[i])
+        {
+            prime[total++]=i;
+            for(int j=i*2; j<10000000; j+=i)
+            {
+                is_prime[j]=1;
+            }
+
+        }
+    }
+    return;
+}
 
 int main()
 {
+    solve();
     int t=II;
-    for(int cs=1; cs<=t; cs++)
+    for(int cs=1;cs<=t; cs++)
     {
-        int n=II, w=II, k=II;
-        int y[n+3],temp;
-        for(int i=0; i<n; i++)
-            temp=II,y[i]=II;
-        sort(y,y+n);
-        y[n++]=INT_MAX;
-        int dp[105][105];
-        memset(dp, 0, sizeof dp);
-        for(int i=0; i<n-1; i++)
-        {
-            for(int j=0; j<k; j++)
-            {
-                if(i!=0)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j]);
-                int high=i;
-                while(y[high]<=y[i]+w)
-                    high++;
-                dp[high][j+1]=max(dp[high][j+1],dp[i][j]+high-i);
-            }
-        }
+        int n=II;
         int res=0;
-        for(int i=0;i<n; i++)
+        for(int i=0; prime[i]<=n/2; i++)
         {
-            for(int j=0; j<=k; j++)
-            {
-                res=max(res, dp[i][j]);
-//                cout<<res<<endl;
-            }
+            int j=n-prime[i];
+            if(!is_prime[j])
+                res++;
         }
-        pf("Case %d: %d\n",cs,res);
+        pf("Case %d: %d\n", cs, res);
     }
     return 0;
 }

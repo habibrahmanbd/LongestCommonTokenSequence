@@ -51,50 +51,36 @@ template <class T> inline T modinverse(T a,T M)
 {
     return bigmod(a,M-2,M);
 }
-//------------------------------------------------------
+#define MS 100000
 
-
+#define eui 0.57721566490153286060651209008240243104215933593992
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+//    freopen("input.txt", "r", stdin);
+    int test, cs= 1;
+    int n;
+    double h[MS+1];
+    scanf("%d", &test);
+    h[0] = 0.0;
+    double nh = 1.0;
+    int ind = 1000;
+    for(int i = 2; i <= 100000000; i++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
+        nh += 1.0/i;
+        if(i == ind)
         {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
-            {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
+            h[ind/1000] = nh;
+            ind += 1000;
         }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
-        }
-        pf("\n");
+    }
 
+    while( test-- )
+    {
+        scanf("%d", &n);
+        nh = h[n/1000];
+        for(int i = (n/1000) * 1000 + 1 ; i <= n; i++)
+            nh += 1.0/i;
+        printf("Case %d: %.10lf\n", cs++, nh );
     }
     return 0;
 }

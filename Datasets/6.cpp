@@ -51,44 +51,30 @@ template <class T> inline T modinverse(T a,T M)
 {
     return bigmod(a,M-2,M);
 }
-//------------------------------------------------------
-
-
+#define EPS 0.000000001
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++)
+    ll t=ILL;
+    for(ll i=1; i<=t; i++)
     {
-        int n=II, w=II, k=II;
-        int y[n+3],temp;
-        for(int i=0; i<n; i++)
-            temp=II,y[i]=II;
-        sort(y,y+n);
-        y[n++]=INT_MAX;
-        int dp[105][105];
-        memset(dp, 0, sizeof dp);
-        for(int i=0; i<n-1; i++)
+        db a,b;
+        sf("%lf : %lf",&a,&b);
+        db high=400.0, low=0.0;
+        while(fabs(high-low)>EPS)
         {
-            for(int j=0; j<k; j++)
-            {
-                if(i!=0)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j]);
-                int high=i;
-                while(y[high]<=y[i]+w)
-                    high++;
-                dp[high][j+1]=max(dp[high][j+1],dp[i][j]+high-i);
-            }
+            db len =(high+low)/2.0;
+            db half_len = len/2.0;
+            db width = (b*len)/a;
+            db half_width = width/2.0;
+            db rad = sqrt((half_len*half_len) + (half_width*half_width));
+            db theta = acos(half_len/rad);
+            db arc  = theta*rad;
+            db ex_arc = (200.0-len)/2.0;
+            if(arc>ex_arc)
+                high = len;
+            else low = len;
         }
-        int res=0;
-        for(int i=0;i<n; i++)
-        {
-            for(int j=0; j<=k; j++)
-            {
-                res=max(res, dp[i][j]);
-//                cout<<res<<endl;
-            }
-        }
-        pf("Case %d: %d\n",cs,res);
+        pf("Case %lld: %.8lf %.8lf\n",i, low, (b*low)/a);
     }
     return 0;
 }

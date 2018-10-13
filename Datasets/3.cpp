@@ -28,7 +28,7 @@ using namespace std;
 #define in          freopen("in.txt","r",stdin)
 #define out         freopen("out.txt","w",stdout)
 #define PI          2*acos(0.0)
-#define mod         1000000007
+#define mod         100000007
 #define INF         LLONG_MAX
 #define endl	    '\n'
 
@@ -51,50 +51,45 @@ template <class T> inline T modinverse(T a,T M)
 {
     return bigmod(a,M-2,M);
 }
-//------------------------------------------------------
 
-
+ll solve  (ll a,  ll b,  ll m)
+{
+    ll n =  (ll) sqrt (m + .0)  +  1;
+    ll an =  1;
+    for (ll i=0; i<n; ++i)
+        an =  (an * a)  % m;
+    map<ll, ll> vals;
+    for (ll i=1, cur=an; i<=n; ++i)
+    {
+        if (!vals.count(cur))
+            vals[ cur]  = i;
+        cur =  (cur * an)  % m;
+    }
+    ll res=INF;
+    for (ll i=0, cur=b; i<=n; ++i)
+    {
+        if (vals.count(cur))
+        {
+            ll ans = vals[cur] * n - i;
+            if (ans < m)
+                res=min(res,ans);
+        }
+        cur =  (cur * a)  % m;
+    }
+    if(res!=INF)
+        return res;
+    return -1;
+}
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    ios_base::sync_with_stdio(0);
+    ll t;
+    cin>>t;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
-        {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
-            {
-                if(p%j==0)
-                {
-
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
-        }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
-        }
-        pf("\n");
-
+        ll a,b;
+        cin>>a>>b;
+        pf("Case %lld: %lld\n",cs,solve(a,b,mod));
     }
     return 0;
 }

@@ -52,43 +52,55 @@ template <class T> inline T modinverse(T a,T M)
     return bigmod(a,M-2,M);
 }
 //------------------------------------------------------
-
+#define s 1000010
+bool col[s];
+ll prime[s];
+ll maxim;
+void seive()//1 indexed
+{
+    ll i,j,k;
+    col[0]=true;
+    col[1]=true;
+    k=0;
+    prime[++k]=2;
+    for(j=4;j<s;j+=2)
+        col[j]=true;
+    for(i=3;i<s;i+=2)
+         if(!col[i])
+         {
+                prime[++k]=i;
+                for(j=i*i;j<s;j+=2*i)
+                    col[j]=true;
+         }
+    maxim=k;
+    return;
+}
 
 int main()
 {
+    seive();
     int t=II;
     for(int cs=1; cs<=t; cs++)
     {
-        int n=II, w=II, k=II;
-        int y[n+3],temp;
-        for(int i=0; i<n; i++)
-            temp=II,y[i]=II;
-        sort(y,y+n);
-        y[n++]=INT_MAX;
-        int dp[105][105];
-        memset(dp, 0, sizeof dp);
-        for(int i=0; i<n-1; i++)
+        ll n=ILL;
+        ll res=1;
+        for(ll i=1; prime[i]*prime[i]<=n && i<=maxim; i++)
         {
-            for(int j=0; j<k; j++)
+            ll cnt=0;
+            if(n%prime[i]==0)
             {
-                if(i!=0)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j]);
-                int high=i;
-                while(y[high]<=y[i]+w)
-                    high++;
-                dp[high][j+1]=max(dp[high][j+1],dp[i][j]+high-i);
+                while(n%prime[i]==0)
+                {
+                    n/=prime[i];
+                    cnt++;
+                }
             }
+            res*=(cnt+1);
         }
-        int res=0;
-        for(int i=0;i<n; i++)
-        {
-            for(int j=0; j<=k; j++)
-            {
-                res=max(res, dp[i][j]);
-//                cout<<res<<endl;
-            }
-        }
-        pf("Case %d: %d\n",cs,res);
+        if(n>1)
+            res*=2;
+        res-=1;
+        pf("Case %d: %lld\n",cs, res);
     }
     return 0;
 }

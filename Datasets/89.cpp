@@ -51,50 +51,55 @@ template <class T> inline T modinverse(T a,T M)
 {
     return bigmod(a,M-2,M);
 }
-//------------------------------------------------------
 
-
+struct points
+{
+    db x, y;
+    double dist(points p)
+    {
+        p.x -= x;
+        p.y -= y;
+        return sqrt(p.x * p.x + p.y * p.y);
+    }
+};
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++ )
+    ll t=ILL;
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II;
-//        int temp=n;
-        int arr[102]= {0};
-        for(int i=1; i<=n; i++ )
+        points a,b,c,d;
+        a.x=ID,a.y=ID;
+        b.x=ID,b.y=ID;
+        c.x=ID,c.y=ID;
+        d.x=ID,d.y=ID;
+        db res=(db)LONG_LONG_MAX;
+        for(ll i=0; i<=100; i++)
         {
-            int p=i;
-            for(int j=2; j*j<=i; j++ )
-            {
-                if(p%j==0)
-                {
+            points a_a,b_b, c_c, d_d;
 
-                    int cnt=0;
-                    while(p%j==0)
-                    {
-                        p/=j;
-                        cnt++;
-                    }
-                    arr[j]+=cnt;
-                }
-            }
-            if(p>1)
-                arr[p]++;
-        }
-        bool flag=0;
-        for(int i=1; i<=n; i++ )
-        {
-            if(arr[i])
-            {
-                if(flag)
-                    pf(" * %d (%d)",i,arr[i]);
-                else
-                    flag=1,pf("Case %d: %d = %d (%d)",cs,n,i,arr[i]);
-            }
-        }
-        pf("\n");
+            a_a.x= a.x+(b.x-a.x)/3.0;
+            a_a.y= a.y+(b.y-a.y)/3.0;
 
+            c_c.x= c.x+(d.x-c.x)/3.0;
+            c_c.y= c.y+(d.y-c.y)/3.0;
+
+            b_b.x= b.x-(b.x-a.x)/3.0;
+            b_b.y= b.y-(b.y-a.y)/3.0;
+
+            d_d.x= d.x-(d.x-c.x)/3.0;
+            d_d.y= d.y-(d.y-c.y)/3.0;
+
+            db m1 = a_a.dist(c_c);
+            db m2 = b_b.dist(d_d);
+            res=min(res,min(m1,m2));
+
+            if(m1>m2)
+                a=a_a,c=c_c;
+            else
+                b=b_b,d=d_d;
+//            cout<<res<<endl;
+        }
+        pf("Case %lld: %.10lf\n",cs,res);
     }
     return 0;
 }

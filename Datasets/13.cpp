@@ -56,39 +56,49 @@ template <class T> inline T modinverse(T a,T M)
 
 int main()
 {
-    int t=II;
-    for(int cs=1; cs<=t; cs++)
+    ll t=ILL;
+    sf("\n");
+    for(ll cs=1; cs<=t; cs++)
     {
-        int n=II, w=II, k=II;
-        int y[n+3],temp;
-        for(int i=0; i<n; i++)
-            temp=II,y[i]=II;
-        sort(y,y+n);
-        y[n++]=INT_MAX;
-        int dp[105][105];
-        memset(dp, 0, sizeof dp);
-        for(int i=0; i<n-1; i++)
+        char str1[105],str2[105];
+        gets(str1);
+        gets(str2);
+        ll a[26]={0},b[26]={0};
+        for(ll i=0; i<strlen(str1); i++)
         {
-            for(int j=0; j<k; j++)
+            if(str1[i]==' ')
+                continue;
+            else
             {
-                if(i!=0)
-                    dp[i][j]=max(dp[i][j],dp[i-1][j]);
-                int high=i;
-                while(y[high]<=y[i]+w)
-                    high++;
-                dp[high][j+1]=max(dp[high][j+1],dp[i][j]+high-i);
+                a[tolower(str1[i])-'a']++;
             }
         }
-        int res=0;
-        for(int i=0;i<n; i++)
+        for(ll i=0; i<strlen(str2); i++)
         {
-            for(int j=0; j<=k; j++)
+            if(str2[i]==' ')
+                continue;
+            else
             {
-                res=max(res, dp[i][j]);
-//                cout<<res<<endl;
+                b[tolower(str2[i])-'a']++;
             }
         }
-        pf("Case %d: %d\n",cs,res);
+        bool flag=0;
+        for(ll i=0; i<26; i++)
+        {
+            if(b[i]<=a[i])
+                continue;
+            else
+            {
+                flag=1;
+                break;
+            }
+        }
+        if(flag==1)
+        {
+            pf("Case %lld: No\n",cs);
+        }
+        else
+            pf("Case %lld: Yes\n",cs);
     }
     return 0;
 }
