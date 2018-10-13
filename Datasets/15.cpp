@@ -1,16 +1,7 @@
 using namespace std;
 #include<bits/stdc++.h>
 
-#define ll          int
 
-#define pf          printf
-#define sf          scanf
-
-#define _F_in       freopen("1114 - Easily Readable.txt","r",stdin)
-#define _F_out      freopen("1114 - Easily Readable_out.txt","w",stdout)
-
-
-//------------------------------------------------------
 
 ll getId(char   c)
 {

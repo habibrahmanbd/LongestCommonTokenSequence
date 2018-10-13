@@ -1,21 +1,4 @@
-/*
-Algorithm: KMP
-A nice tutorial on KMP: http://www.iti.fh-flensburg.de/lang/algorithmen/pattern/kmpen.htm
 
-Consider the 4th test case
-P = anncbaaababaaa
-Let
-Q = aaababaaabcnna (reverse of P)
-
-Now look how can we construct the shortest palindrome by adding character to the right of P,
-with the help of Q
-
-P : anncbaaababaaa|||||
-Q : |||||aaababaaabcnna
-Ans:anncbaaababaaabcnna
-
-So all we need to do is search for the longest prefix of Q in P. You can do this by using KMP.
-*/
 #include <cstdio>
 #include <cstring>
 #include <time.h>

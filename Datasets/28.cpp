@@ -1,18 +1,5 @@
 #include <iostream>
-#include <vector>
-#include <map>
-#include <cstring>
-#include <list>
-#include <queue>
-#include <cmath>
-#include <cstdio>
-#include <algorithm>
-#include <stack>
-#include <sstream>
-#include <bitset>
-#include <set>
-#define sf scanf
-#define pf printf
+
 using namespace std;
 int main()
 {

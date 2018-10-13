@@ -79,10 +79,8 @@ def WriteReport(Result, NumberofInputFiles):
         writer.writerows(Result)
         
 if __name__ == "__main__":
-    NumberofInputFiles = 3
+    NumberofInputFiles = 100                #Number of Files
     tokens = tokenize(NumberofInputFiles)
     tree = trieBuild(tokens)
     Result = LongestCommonTokenSequence(tokens, tree)
-#    Flag, Counts, TotalVisitor = tree.searchWordPrefix(['for', '('])
-#    print(str(Flag) + " "+ str(Counts) + " "+ str(TotalVisitor))
     WriteReport(Result, NumberofInputFiles)

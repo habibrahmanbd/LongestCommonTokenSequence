@@ -1,39 +1,4 @@
-//link: http://lightoj.com/volume_showproblem.php?problem=1028
-
 #include<iostream>
-#include<cstdio>
-#include<cstring>
-#include<cstdlib>
-#include<cmath>
-
-#include<algorithm>
-#include<vector>
-#include<queue>
-#include<stack>
-#include<map>
-#include<utility>
-#include<set>
-
-
-#define FOR(i, s, e) for(int i=s; i<e; i++)
-#define loop(i, n) FOR(i, 0, n)
-#define sf scanf
-#define pf printf
-#define pb push_back
-#define MP make_pair
-#define fr first
-#define sc second
-#define ll long long
-#define dd double
-#define all(v) v.begin(), v.end()
-#define PI acos(-1.0)
-#define mem(ara, value) memset(ara, value, sizeof(ara))
-#define paii pair<int, int>
-#define pall pair<ll, ll>
-#define SZ(a) int(a.size())
-#define read(nm) freopen(nm, "r", stdin)
-#define write(nm) freopen(nm, "w", stdout)
-#define dump(x) cout<<#x<<" = "<<x<<endl
 
 using namespace std;
 

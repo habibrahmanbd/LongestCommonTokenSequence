@@ -1,33 +1,6 @@
 using namespace std;
 #include<bits/stdc++.h>
-#define db          double
-#define LL          long long
-#define uLL         unsigned long long
-#define vi          vector<int>
-#define vl          vector<long>
-#define vLL         vector<LL>
-#define pi          pair<int,int>
-#define pl          pair<long,long>
-#define pLL         pair<LL,LL>
-#define pb          push_back
-#define pf          printf
-#define sf          scanf
-#define mii         map<int,int>
-#define mLL         map<LL,LL>
-#define II          ({int a; sf("%d",&a); a;})
-#define IL          ({long a; sf("%ld",&a); a;})
-#define ILL         ({LL a; sf("%lld",&a); a;})
-#define ID          ({db a; sf("%lf",&a); a;})
-#define IF          ({float a; sf("%f",&a); a;})
-#define IC          ({char a; sf("%c",&a); a;})
-#define FRI(a,b,c)  for(int i=a;   i<=b; i+=c)
-#define FRL(a,b,c)  for(long i=a;  i<=b; i+=c)
-#define FRLL(a,b,c) for(LL i=a;    i<=b; i+=c)
-#define in          freopen("in.txt","r",stdin)
-#define out         freopen("out.txt","w",stdout)
-#define PI          2*acos(0.0)
-#define mod         1000000007
-#define INF         1<<29
+
 LL digit[21];
 LL dp[21][2][21];
 LL dep_rec(LL len,bool flag,LL p,LL p2,bool fp)
