@@ -33,7 +33,7 @@ def tokenizer(SourceCode):                          #Customized Tokenizer
     return final
 
 
-def tokenize(NumberofFiles):
+def loadAndTokenize(NumberofFiles):
     tokens = []                                         #A list where all the source codes' token will store as 2D list
     for i in range(NumberofFiles):
         with open("Datasets/"+str(i)+".cpp") as fin:    #Source Code files are named with <fileNumber>.cpp
@@ -79,8 +79,8 @@ def WriteReport(Result, NumberofInputFiles):
         writer.writerows(Result)
 
 if __name__ == "__main__":
-    NumberofInputFiles = 10                             #Number of Files
-    tokens = tokenize(NumberofInputFiles)               #Tokenizes the Source Code Files
+    NumberofInputFiles = 2                             #Number of Files
+    tokens = loadAndTokenize(NumberofInputFiles)               #Tokenizes the Source Code Files
     tree = trieBuild(tokens)                            #Building Tree
     Result = LongestCommonTokenSequence(tokens, tree)   #Finds the Result
     WriteReport(Result, NumberofInputFiles)             #Print Output ot CSV File
