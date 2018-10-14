@@ -10,7 +10,7 @@ import math
 import csv
 from trie import Trie
 
-def tokenizer(SourceCode):                          #Customized Tokenize
+def tokenizer(SourceCode):                          #Customized Tokenizer
     processedCode = ""
     for i in range(0, len(SourceCode)):
         if SourceCode[i].isalpha()==True and SourceCode[i-1].isalpha()==False:
@@ -41,14 +41,13 @@ def tokenize(NumberofFiles):
 #            print tokens
     return tokens
 
-def trieBuild(tokens):
-    tree = Trie()
+def trieBuild(tokens):                                  #Builds the Tree and Returns
+    tree = Trie()                                       #Object of Trie Class
     for i in range(len(tokens)):
         for j in range(len(tokens[i])):
             prefixToken = tokens[i][j:len(tokens[i])]
             tree.insertWord(prefixToken, i+1)
     return tree
-    
 
 def LongestCommonTokenSequence(tokens, tree):
     numberOfRow = len(tokens)                           #Same as Number of Files
@@ -56,7 +55,7 @@ def LongestCommonTokenSequence(tokens, tree):
     LenOfCurrentRow = len(CurrentRow)                   #Length of Tokens for a single source code
     
     maxLength = 0                                       #Previously stored maximum length of tokens
-    Result = []
+    Result = []                                         #Final Result to Write in CSV
 
     for it in range(LenOfCurrentRow):
         for nit in range(it+1, LenOfCurrentRow+1):
@@ -80,8 +79,8 @@ def WriteReport(Result, NumberofInputFiles):
         writer.writerows(Result)
 
 if __name__ == "__main__":
-    NumberofInputFiles = 10                #Number of Files
-    tokens = tokenize(NumberofInputFiles)
-    tree = trieBuild(tokens)
-    Result = LongestCommonTokenSequence(tokens, tree)
-    WriteReport(Result, NumberofInputFiles)
+    NumberofInputFiles = 10                             #Number of Files
+    tokens = tokenize(NumberofInputFiles)               #Tokenizes the Source Code Files
+    tree = trieBuild(tokens)                            #Building Tree
+    Result = LongestCommonTokenSequence(tokens, tree)   #Finds the Result
+    WriteReport(Result, NumberofInputFiles)             #Print Output ot CSV File
