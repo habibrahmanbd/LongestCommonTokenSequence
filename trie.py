@@ -26,7 +26,7 @@ class Trie:
             else:
                 node = self.getNode()
                 current["children"][ch] = node
-            
+
             current["VisitorCounter"] = current["VisitorCounter"] + 1
             current["Visitors"].add(visitorNumber)
             current = node

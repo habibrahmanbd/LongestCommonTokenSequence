@@ -9,7 +9,7 @@ Created on Fri Oct 12 21:33:19 2018
 
 #import nltk
 #import numpy
-from nltk import word_tokenize
+#from nltk import word_tokenize
 import math
 import csv
 from trie import Trie
@@ -21,11 +21,38 @@ from trie import Trie
 #        
 #    return False
 
+def tokenizer(SourceCode):                          #Customized Tokenize
+#    print SourceCode
+#    print len(SourceCode)
+    processedCode = ""
+#    print processedCode
+    for i in range(0, len(SourceCode)):
+        if SourceCode[i].isalpha()==True and SourceCode[i-1].isalpha()==False:
+            processedCode+=" "+SourceCode[i]
+        elif SourceCode[i].isalpha()==False and SourceCode[i].isdigit()==False:
+            processedCode+=" "+SourceCode[i]
+        elif SourceCode[i].isdigit()==True and SourceCode[i-1].isdigit()==False:
+            processedCode+=" "+SourceCode[i]
+        else:
+            processedCode+=SourceCode[i]
+
+    processedCode = processedCode.split(' ')
+    final = []
+    for x in processedCode:
+        if x==' ' or x =='':
+            x
+        else:
+            final.append(x)
+#    print final
+    return final
+
+
 def tokenize(NumberofFiles):
     tokens = []                                         #A list where all the source codes' token will store as 2D list
     for i in range(NumberofFiles):
         with open("Datasets/"+str(i)+".cpp") as fin:    #Source Code files are named with <fileNumber>.cpp
-            tokens.append(word_tokenize(fin.read()))    #NLTK is used for tokenization (Not actual Tokenizer for Source code), 
+            tokens.append(tokenizer(fin.read()))        #Customize Tokenizer
+#            tokens.append(word_tokenize(fin.read()))    #NLTK is used for tokenization (Not actual Tokenizer for Source code)
     return tokens
 
 def trieBuild(tokens):
@@ -79,7 +106,7 @@ def WriteReport(Result, NumberofInputFiles):
         writer.writerows(Result)
         
 if __name__ == "__main__":
-    NumberofInputFiles = 100                #Number of Files
+    NumberofInputFiles = 2                #Number of Files
     tokens = tokenize(NumberofInputFiles)
     tree = trieBuild(tokens)
     Result = LongestCommonTokenSequence(tokens, tree)
