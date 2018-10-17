@@ -17,10 +17,10 @@
 
 ## Modules
 
-* LCTS.py
-* trie.py
+- LCTS.py
+- trie.py
 
-_**trie.py**_ is the module for **Trie** data structure [[1](#References)]. The trie (Prefix Tree) is a tree of nodes which supports Find and Insert operations. Find returns the value for a key, and Insert inserts a key and a value into the trie. Both Insert and Find run in _O(n)_ time, where n is the length of the key.
+_**trie.py**_ is the module for **Trie** data structure [[1](#references)]. The trie (Prefix Tree) is a tree of nodes which supports Find and Insert operations. Find returns the value for a key, and Insert inserts a key and a value into the trie. Both Insert and Find run in _O(n)_ time, where n is the length of the key.
 
 __**LCTS.py**__ is the module for Load the source codes into our system, tokenize the source codes, finding the longest common token sequence and write the result in a CSV file.
 
@@ -58,21 +58,21 @@ _Score = log2(Counts) * log2(LenghtOfTokenSequence)_
 
 Let, complexity for a token is equal to complexity of a character in a string or constant.
 
-_N = _ Number of Source Code Files
+**N =** Number of Source Code Files
 
-_K = _ Number of Tokens in Source Code
+**K =**  Number of Tokens in Source Code
 
-So, Token Generation Complexity _  = O(N * K) _
+So, Token Generation Complexity **= O(N * K)**
 
-Trie Building Complexity _ = O (N * K^2) _
+Trie Building Complexity = **O (N * K^2)**
 
-Longest Common Token Sequence Finding Complexity _ = O (N * K^2) _
+Longest Common Token Sequence Finding Complexity = **O (N * K^2)**
 
-Finally, Total Complexity  = Token Generation Complexity + Trie Building Complexity + Longest Common Token Sequence Finding Complexity _  = O (N * K^2 )_
+Finally, Total Complexity  = Token Generation Complexity + Trie Building Complexity + Longest Common Token Sequence Finding Complexity  = **O (N * K^2 )**
 
 
 ## Dataset:
-Contain _100_ Light Online Judge[[2](#References)] Problem Solutions that are in [[3](#References)], where customize template of my codes are deleted. Codes are in the Dataset subfolder.
+Contain _100_ Light Online Judge[[2](#references)] Problem Solutions that are in [[3](#references)], where customize template of my codes are deleted. Codes are in the Dataset subfolder.
 
 ## Results:
 **_WriteReport_**  method writes the results in Output subfolder.
@@ -81,7 +81,7 @@ Contain _100_ Light Online Judge[[2](#References)] Problem Solutions that are in
 
 * C/C++/C# Tokenizer only with some critical issue of operator
 
-## References:
+## references:
 
 - [1] https://en.wikipedia.org/wiki/Trie
 
