@@ -81,7 +81,7 @@ Contain _100_ Light Online Judge[[2](#references)] Problem Solutions that are in
 
 * C/C++/C# Tokenizer only with some critical issue of operator
 
-## references:
+## References:
 
 - [1] https://en.wikipedia.org/wiki/Trie
 
