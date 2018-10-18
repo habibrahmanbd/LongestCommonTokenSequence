@@ -79,8 +79,9 @@ def WriteReport(Result, NumberofInputFiles):
         writer.writerows(Result)
 
 if __name__ == "__main__":
-    NumberofInputFiles = 2                             #Number of Files
+    NumberofInputFiles = input("Enter the number of source codes to run from datasets: ")          #Number of Files
     tokens = loadAndTokenize(NumberofInputFiles)               #Tokenizes the Source Code Files
     tree = trieBuild(tokens)                            #Building Tree
     Result = LongestCommonTokenSequence(tokens, tree)   #Finds the Result
     WriteReport(Result, NumberofInputFiles)             #Print Output ot CSV File
+    print("\nOutput printed Successfully..")

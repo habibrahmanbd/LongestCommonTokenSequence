@@ -26,7 +26,7 @@ __**LCTS.py**__ is the module for Load the source codes into our system, tokeniz
 
 ## How to Use / How it Works:
 
-**_NumberOfFiles_**  of _LCTS.py_ is the input source code files. 
+**_NumberOfFiles_**  of _LCTS.py_ is the number of source code files to run on. 
 
 **_loadAndTokenize_** is the method for loading the source code files and prepare them for tokenizing.
 
@@ -51,6 +51,19 @@ Finding the famous _longest common substring_ problem uses this technique. All t
 **_WriteReport_** is the method for wrting the result and score in a CSV file, where columns are **_Score_**, **_Token Sequence Length_**, **_Number of Times the token sequence occurs in the files_**, **_Token Squence_**.
 
 _Score = log2(Counts) * log2(LenghtOfTokenSequence)_
+
+
+## Run
+
+To run the code:
+```
+$ git clone https://github.com/habibrahmanbd/LongestCommonTokenSequence.git
+$ cd LongestCommonTokenSequence
+$ python LCTS.py
+Enter the number of source codes to run from datasets: <EnterTheNumber>
+
+Output printed successfully..
+```
 
 
 
