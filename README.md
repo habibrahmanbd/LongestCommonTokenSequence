@@ -103,4 +103,4 @@ Contain _100_ Light Online Judge[[2](#references)] Problem Solutions that are in
 - [3] https://github.com/habibrahmanbd/Light-Online-Judge
 
 ## Acknowledgement:
-I would like to thank <a href = "https://sarahnadi.org/" > Sarah Nadi</a>, Assistant Professor in the Department of Computing Science at the University of Alberta for assigning me this coding task.
+I would like to thank <a href = "https://sarahnadi.org/" > Sarah Nadi</a>, Assistant Professor at the Department of Computing Science of the University of Alberta for assigning me this coding task.
